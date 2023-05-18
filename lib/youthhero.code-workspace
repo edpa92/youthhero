@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "youthhero",
+			"path": ".."
+		}
+	],
+	"settings": {
+		"java.configuration.updateBuildConfiguration": "automatic",
+		"dart.offline": true
+	}
+}
