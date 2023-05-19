@@ -22,31 +22,33 @@ class WebinarViewPage extends StatefulWidget {
 }
 
 class _WebinarViewPageState extends State<WebinarViewPage> {
-  List<Widget> myDrawer(BuildContext context) {
+  List<Widget> mydrower(BuildContext context) {
+    final String? disName =
+        UtilClass.prefs?.getString(UtilClass.displayNameKey);
+    final String? disMail = UtilClass.prefs?.getString(UtilClass.unameKey);
+
     final List<Widget> menuItems = [
-      const UserAccountsDrawerHeader(
-        accountName: Text(
-          'Users name',
-          style: TextStyle(
-            color: Color.fromARGB(255, 240, 83, 83),
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-            backgroundColor: Color.fromARGB(255, 67, 67, 67),
-          ),
-        ),
-        accountEmail: Text(
-          'emailhere@example.com',
-          style: TextStyle(
-            color: Color.fromARGB(255, 132, 233, 107),
-            fontWeight: FontWeight.bold,
-            fontSize: 15,
-            backgroundColor: Color.fromARGB(255, 67, 67, 67),
-          ),
-        ),
-        currentAccountPicture: CircleAvatar(
+      UserAccountsDrawerHeader(
+        accountName: Text(disName ?? "",
+            style: const TextStyle(
+                color: Color.fromARGB(255, 240, 83, 83),
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                backgroundColor:
+                    Color.fromRGBO(67, 67, 67, 1) // Change the text color here
+                )),
+        accountEmail: Text(disMail ?? "",
+            style: const TextStyle(
+                color: Color.fromARGB(255, 132, 233, 107),
+                fontWeight: FontWeight.bold,
+                fontSize: 15,
+                backgroundColor: Color.fromARGB(255, 67, 67,
+                    67) // Change the text color here // Change the text color here
+                )),
+        currentAccountPicture: const CircleAvatar(
           backgroundImage: AssetImage('assets/images/profile.png'),
         ),
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/images/cover.png'),
             fit: BoxFit.cover,
@@ -130,43 +132,61 @@ class _WebinarViewPageState extends State<WebinarViewPage> {
         },
       ),
       Expanded(
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Color.fromARGB(255, 0, 0, 0),
-                ),
-              ),
-            ),
-            child: ListTile(
-              title: const Text(
-                'Logout',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 255, 238, 238),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                ),
-              ),
-              leading: const Icon(Icons.logout),
-              onTap: () {
-                if (UtilClass.prefs != null) {
-                  UtilClass.prefs!.remove(UtilClass.isLogInKey);
-                  UtilClass.prefs!.remove(UtilClass.unameKey);
-                  UtilClass.prefs!.remove(UtilClass.pwKey);
+          child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                  decoration: const BoxDecoration(
+                    border: Border(
+                      top: BorderSide(
+                        color: Color.fromARGB(
+                            255, 0, 0, 0), // Change the line color here
+                      ),
+                    ),
+                  ),
+                  child: ListTile(
+                    title: const Text('Logout',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 238, 238),
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12 // Change the text color here
+                            )),
+                    leading: const Icon(Icons.logout),
+                    onTap: () => showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('LOGGING OUT'),
+                        content: const Text('Are you sure you want to logout?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () {},
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () {
+                              if (UtilClass.prefs != null) {
+                                UtilClass.prefs!.remove(UtilClass.isLogInKey);
+                                UtilClass.prefs!.remove(UtilClass.unameKey);
+                                UtilClass.prefs!.remove(UtilClass.pwKey);
+                                UtilClass.prefs!
+                                    .remove(UtilClass.displayNameKey);
+                                UtilClass.prefs!.remove(UtilClass.uidKey);
+                                UtilClass.prefs!.remove(UtilClass.accountIdKey);
+                                UtilClass.prefs!.remove(UtilClass.isSeekerKey);
 
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                    (route) => false,
-                  );
-                }
-              },
-            ),
-          ),
-        ),
-      ),
+                                Navigator.pushAndRemoveUntil(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => const LoginPage()),
+                                  (route) => false,
+                                );
+                              }
+                            },
+                            child: const Text('Yes'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )))),
     ];
 
     return menuItems;

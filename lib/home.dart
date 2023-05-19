@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:youthhero/login.dart';
 import 'package:youthhero/seeker_profile.dart';
 import 'package:youthhero/utils/uti_class.dart';
+import 'package:youthhero/webinarfeed.dart';
 
 void main() => runApp(const MyHomePage());
 
@@ -41,48 +42,76 @@ List<Widget> mydrower(BuildContext context) {
       title: const Text(
         'Home',
         style: TextStyle(
-            color: Color.fromARGB(255, 251, 243, 242),
-            fontWeight: FontWeight.bold // Change the text color here
-            ),
+          color: Color.fromARGB(255, 251, 243, 242),
+          fontWeight: FontWeight.bold,
+        ),
       ),
       leading: const Icon(Icons.home),
-      onTap: () {},
+      onTap: () {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (context) => const MyHomePage()),
+          (route) => false,
+        );
+      },
     ),
     ListTile(
-      title: const Text('Jobs Offers',
-          style: TextStyle(
-              color: Color.fromARGB(255, 255, 238, 238),
-              fontWeight: FontWeight.bold,
-              fontSize: 12 // Change the text color here
-              )),
-      leading: const Icon(Icons.work_rounded),
-      onTap: () {},
+      title: const Text(
+        'Webinars',
+        style: TextStyle(
+          color: Color.fromARGB(255, 255, 238, 238),
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+      ),
+      leading: const Icon(Icons.video_collection_rounded),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WebinarViewPage(
+              url: 'https://www.youtube.com/results?search_query=webinar',
+            ),
+          ),
+        );
+      },
     ),
     ListTile(
-      title: const Text('Free Webinars ',
-          style: TextStyle(
-              color: Color.fromARGB(255, 255, 238, 238),
-              fontWeight: FontWeight.bold,
-              fontSize: 12 // Change the text color here
-              )),
-      leading: const Icon(Icons.video_call),
-      onTap: () {},
+      title: const Text(
+        'News',
+        style: TextStyle(
+          color: Color.fromARGB(255, 255, 238, 238),
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+      ),
+      leading: const Icon(Icons.newspaper_rounded),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => WebinarViewPage(
+              url: 'https://www.mindanews.com',
+            ),
+          ),
+        );
+      },
     ),
     ListTile(
-      title: const Text('Profile',
-          style: TextStyle(
-              color: Color.fromARGB(255, 255, 238, 238),
-              fontWeight: FontWeight.bold,
-              fontSize: 12 // Change the text color here
-              )),
+      title: const Text(
+        'Profile',
+        style: TextStyle(
+          color: Color.fromARGB(255, 255, 238, 238),
+          fontWeight: FontWeight.bold,
+          fontSize: 12,
+        ),
+      ),
       leading: const Icon(Icons.person),
       onTap: () {
-        if ((UtilClass.prefs?.getBool(UtilClass.isSeekerKey) ?? false)) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SeekerProfilePage()),
-          );
-        }
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => SeekerProfilePage()),
+        );
       },
     ),
     Expanded(
