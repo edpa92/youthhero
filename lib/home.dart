@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youthhero/login.dart';
+import 'package:youthhero/seeker_profile.dart';
 import 'package:youthhero/utils/uti_class.dart';
 
 void main() => runApp(const MyHomePage());
@@ -75,7 +76,14 @@ List<Widget> mydrower(BuildContext context) {
               fontSize: 12 // Change the text color here
               )),
       leading: const Icon(Icons.person),
-      onTap: () {},
+      onTap: () {
+        if ((UtilClass.prefs?.getBool(UtilClass.isSeekerKey) ?? false)) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SeekerProfilePage()),
+          );
+        }
+      },
     ),
     Expanded(
         child: Align(
@@ -97,24 +105,40 @@ List<Widget> mydrower(BuildContext context) {
                           fontSize: 12 // Change the text color here
                           )),
                   leading: const Icon(Icons.logout),
-                  onTap: () {
-                    if (UtilClass.prefs != null) {
-                      UtilClass.prefs!.remove(UtilClass.isLogInKey);
-                      UtilClass.prefs!.remove(UtilClass.unameKey);
-                      UtilClass.prefs!.remove(UtilClass.pwKey);
-                      UtilClass.prefs!.remove(UtilClass.displayNameKey);
-                      UtilClass.prefs!.remove(UtilClass.uidKey);
-                      UtilClass.prefs!.remove(UtilClass.accountIdKey);
-                      UtilClass.prefs!.remove(UtilClass.isSeekerKey);
+                  onTap: () => showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('LOGGING OUT'),
+                      content: const Text('Are you sure you want to logout?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {},
+                          child: const Text('Cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            if (UtilClass.prefs != null) {
+                              UtilClass.prefs!.remove(UtilClass.isLogInKey);
+                              UtilClass.prefs!.remove(UtilClass.unameKey);
+                              UtilClass.prefs!.remove(UtilClass.pwKey);
+                              UtilClass.prefs!.remove(UtilClass.displayNameKey);
+                              UtilClass.prefs!.remove(UtilClass.uidKey);
+                              UtilClass.prefs!.remove(UtilClass.accountIdKey);
+                              UtilClass.prefs!.remove(UtilClass.isSeekerKey);
 
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()),
-                        (route) => false,
-                      );
-                    }
-                  },
+                              Navigator.pushAndRemoveUntil(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginPage()),
+                                (route) => false,
+                              );
+                            }
+                          },
+                          child: const Text('Yes'),
+                        ),
+                      ],
+                    ),
+                  ),
                 )))),
   ];
 

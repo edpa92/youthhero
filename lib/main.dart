@@ -6,18 +6,17 @@ import 'package:youthhero/utils/uti_class.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
- 
-    UtilClass.prefs= await SharedPreferences.getInstance();
- 
-        final prefs = await SharedPreferences.getInstance();
 
-        if (prefs.containsKey(UtilClass.isLogInKey) && prefs.getBool(UtilClass.isLogInKey)!) {          
-          runApp(const MaterialApp(
-            home: MyHomePage(),
-          ));
-        }else{
-           runApp(const MaterialApp(
-            home: LoginPage(),
-          ));
-        }
+  UtilClass.prefs = await SharedPreferences.getInstance();
+
+  if ((UtilClass.prefs?.containsKey(UtilClass.isLogInKey) ?? false) &&
+      (UtilClass.prefs?.getBool(UtilClass.isLogInKey) ?? false)) {
+    runApp(const MaterialApp(
+      home: MyHomePage(),
+    ));
+  } else {
+    runApp(const MaterialApp(
+      home: LoginPage(),
+    ));
+  }
 }
