@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:youthhero/login.dart';
+import 'package:youthhero/newsfeed.dart';
 import 'package:youthhero/seeker_profile.dart';
 import 'package:youthhero/utils/uti_class.dart';
+import 'package:youthhero/webinarfeed.dart';
 
 void main() => runApp(const MyHomePage());
 
@@ -66,7 +68,35 @@ List<Widget> mydrower(BuildContext context) {
               fontSize: 12 // Change the text color here
               )),
       leading: const Icon(Icons.video_call),
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const WebinarViewPage(
+              url: 'https://www.youtube.com/results?search_query=webinar',
+            ),
+          ),
+        );
+      },
+    ),
+    ListTile(
+      title: const Text('News Feeds',
+          style: TextStyle(
+              color: Color.fromARGB(255, 255, 238, 238),
+              fontWeight: FontWeight.bold,
+              fontSize: 12 // Change the text color here
+              )),
+      leading: const Icon(Icons.newspaper),
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const NewsViewPage(
+              url: 'https://mindanews.com',
+            ),
+          ),
+        );
+      },
     ),
     ListTile(
       title: const Text('Profile',
