@@ -48,20 +48,38 @@ class _LoginPageState extends State<LoginPage> {
 
         // Check the response status code
         if (response.statusCode == 200) {
+          print("status code 200");
           dynamic data = await response.stream.bytesToString();
           print("$data $email $password");
           final result = json.decode(data);
           print(result[0]);
           if (result[0]['success']) {
-            print("success");
-            prefs.setBool(UtilClass.isLogInKey, true);
-            prefs.setString(UtilClass.unameKey, email);
-            prefs.setString(UtilClass.pwKey, password);
-            prefs.setString(UtilClass.displayNameKey, result[0]['displayname']);
-            prefs.setString(UtilClass.uidKey, result[0]['uid']);
-            prefs.setString(UtilClass.accountIdKey, result[0]['accountid']);
             prefs.setBool(UtilClass.isSeekerKey, result[0]['isseeker']);
-            print("all preff saves");
+            if (result[0]['isseeker']) {
+              prefs.setBool(UtilClass.isLogInKey, true);
+              prefs.setString(UtilClass.unameKey, email);
+              prefs.setString(UtilClass.pwKey, password);
+              prefs.setString(UtilClass.displayNameKey,
+                  result[0]['displayname'] ?? "Display name");
+              prefs.setString(UtilClass.fNameKey, result[0]['firstname'] ?? "");
+              prefs.setString(UtilClass.lNameKey, result[0]['lastname'] ?? "");
+              prefs.setString(UtilClass.uidKey, result[0]['uid'] ?? "");
+              prefs.setString(
+                  UtilClass.accountIdKey, result[0]['accountid'] ?? "");
+              prefs.setString(
+                  UtilClass.genderKey, result[0]['gender'] ?? "Gender");
+              prefs.setString(
+                  UtilClass.bdayKey, result[0]['bday'] ?? "Birthday");
+              prefs.setString(
+                  UtilClass.contactKey, result[0]['contact'] ?? "Contact#");
+              prefs.setString(UtilClass.profilePicKey, result[0]['pic'] ?? "");
+              prefs.setString(UtilClass.profKey,
+                  result[0]['prof'] ?? "Put your Profession here (eg.Painter)");
+              prefs.setString(
+                  UtilClass.expKey,
+                  result[0]['exp'] ??
+                      "Tell us about yor self here, A brief introduction of your experience");
+            } else {}
 
             Future.delayed(const Duration(seconds: 2), () {
               setState(() {

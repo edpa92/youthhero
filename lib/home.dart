@@ -29,8 +29,8 @@ List<Widget> mydrower(BuildContext context) {
               backgroundColor: Color.fromARGB(255, 67, 67,
                   67) // Change the text color here // Change the text color here
               )),
-      currentAccountPicture: const CircleAvatar(
-        backgroundImage: AssetImage('assets/images/profile.png'),
+      currentAccountPicture: CircleAvatar(
+        backgroundImage: UtilClass.geProfilePic(),
       ),
       decoration: const BoxDecoration(
         image: DecorationImage(
