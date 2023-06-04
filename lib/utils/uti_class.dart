@@ -21,7 +21,13 @@ class UtilClass {
   static const String profilePicKey = "profilePicKey";
   static const String profKey = "profKey";
   static const String expKey = "expKey";
+  static const String educKey = "educKey";
+  static const String compDescKey = "compDescKey";
   static SharedPreferences? prefs;
+
+  static String compWebsiteKey = "compWebsiteKey";
+
+  static String companyLogoKey = "compLogoKey";
 
   static Future<void> updatePrefData(
       String firstName,
@@ -43,14 +49,20 @@ class UtilClass {
     await prefs.setString(UtilClass.expKey, exp);
   }
 
-  static ImageProvider<Object> generateImageFromBase64(String base64Pic) {
+  static ImageProvider<Object> base64ToImage(String base64Pic) {
     Uint8List bytes = base64Decode(base64Pic);
     return Image.memory(bytes).image;
   }
 
-  static ImageProvider<Object> geProfilePic() {
+  static ImageProvider<Object> getProfilePic() {
     Uint8List bytes =
         base64Decode(prefs?.getString(UtilClass.profilePicKey) ?? "");
+    return Image.memory(bytes).image;
+  }
+
+  static ImageProvider<Object> getCompanyLogo() {
+    Uint8List bytes =
+        base64Decode(prefs?.getString(UtilClass.companyLogoKey) ?? "");
     return Image.memory(bytes).image;
   }
 }

@@ -172,6 +172,14 @@ class _UpdateSeekerinfo extends State<UpdateSeekerinfo> {
         setState(() {
           _isLoading = false;
         });
+        Fluttertoast.showToast(
+          msg: error.toString(),
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.grey[600],
+          textColor: Colors.white,
+        );
       });
     }
   }

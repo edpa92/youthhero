@@ -12,7 +12,7 @@ void main() async {
   if ((UtilClass.prefs?.containsKey(UtilClass.isLogInKey) ?? false) &&
       (UtilClass.prefs?.getBool(UtilClass.isLogInKey) ?? false)) {
     runApp(const MaterialApp(
-      home: MyHomePage(),
+      home: MyhomePage(),
     ));
   } else {
     runApp(const MaterialApp(

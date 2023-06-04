@@ -33,6 +33,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   String? password2;
   List<String> genders = ['Male', 'Female'];
   List<String> educaions = [
+    'Graduate School',
     'College/University',
     'Sr High School',
     'JR High School',

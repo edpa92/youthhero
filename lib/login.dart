@@ -55,12 +55,16 @@ class _LoginPageState extends State<LoginPage> {
           print(result[0]);
           if (result[0]['success']) {
             prefs.setBool(UtilClass.isSeekerKey, result[0]['isseeker']);
+            prefs.setBool(UtilClass.isLogInKey, true);
+            prefs.setString(UtilClass.unameKey, email);
+            prefs.setString(UtilClass.pwKey, password);
+            prefs.setString(UtilClass.displayNameKey,
+                result[0]['displayname'] ?? "Display name");
+
             if (result[0]['isseeker']) {
               prefs.setBool(UtilClass.isLogInKey, true);
               prefs.setString(UtilClass.unameKey, email);
               prefs.setString(UtilClass.pwKey, password);
-              prefs.setString(UtilClass.displayNameKey,
-                  result[0]['displayname'] ?? "Display name");
               prefs.setString(UtilClass.fNameKey, result[0]['firstname'] ?? "");
               prefs.setString(UtilClass.lNameKey, result[0]['lastname'] ?? "");
               prefs.setString(UtilClass.uidKey, result[0]['uid'] ?? "");
@@ -79,7 +83,16 @@ class _LoginPageState extends State<LoginPage> {
                   UtilClass.expKey,
                   result[0]['exp'] ??
                       "Tell us about yor self here, A brief introduction of your experience");
-            } else {}
+            } else {
+              prefs.setString(
+                  UtilClass.accountIdKey, result[0]['accountid'] ?? "");
+              prefs.setString(
+                  UtilClass.compDescKey, result[0]['companydescription'] ?? "");
+              prefs.setString(
+                  UtilClass.compWebsiteKey, result[0]['companywebsite'] ?? "");
+              prefs.setString(
+                  UtilClass.companyLogoKey, result[0]['logo'] ?? "");
+            }
 
             Future.delayed(const Duration(seconds: 2), () {
               setState(() {
@@ -95,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
               });
               Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => const MyHomePage()),
+                MaterialPageRoute(builder: (context) => const MyhomePage()),
                 (route) => false,
               );
             });
